@@ -1,9 +1,0 @@
-- name: test
-  hosts: all
-  tasks:
-    - name: get ansible info
-      command: ansible --version
-      register: info
-    - debug:
-        msg: '{{ info }}'
-     
