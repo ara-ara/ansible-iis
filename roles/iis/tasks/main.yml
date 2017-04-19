@@ -20,7 +20,8 @@
   win_chocolatey:
     name: git
     state: present
-    
+
+# TOWER NOTE: win_path not supported? it throws an error as a YAML error because the task isn't recognized
 # Ensure git is in the system path
 #- name: Add git to the PATH
 #  win_path:

@@ -24,7 +24,7 @@
 # handle the creation of application inside virtual directories
 # Assumes Web Administration modules are loaded for powershell
 - name: Convert directory into web application. Requires helper script
-  win_shell: C:\convert_to_app.ps1 {{ virtual_path }} "{{ app_pool }}"
+  win_shell: C:\convert_to_app.ps1 {{ site_name }} {{ virtual_path }} "{{ app_pool }}"
   when: not top_level 
 
 # Git init is safe to re-run
