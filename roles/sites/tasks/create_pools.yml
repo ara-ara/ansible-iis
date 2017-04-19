@@ -8,6 +8,8 @@
     #attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True|managedPipelineMode:0'
     attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
   register: pool_2_32
+- debug:
+    msg: '{{ pool_2_32 }}'
 - name: 32 bit .Net 4.0
   win_iis_webapppool:
     name: '{{ site_name }} (.NET 4.0 - 32bit)'
