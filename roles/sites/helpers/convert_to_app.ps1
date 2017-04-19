@@ -12,7 +12,8 @@ Param(
 
 Import-Module WebAdministration
 
-$tmp = Get-WebApplication -Site $site_name -name $virtual_path.Replace('\','/')
+$tmp = Get-WebApplication -Site $site_name -name $virtual_path
+$virtual_path = $virtual_path.Replace('/','\')
 
 if ($tmp -eq $null) { 
     ConvertTo-WebApplication -PSPath IIS:\Sites\$site_name\$virtual_path -ApplicationPool $app_pool 
