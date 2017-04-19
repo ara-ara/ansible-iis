@@ -51,6 +51,13 @@ specialDelivery:  >
 ...
 ```
 
+## Requirements
+In order for Ansible to work with Windows nodes, PowerShell remoting must be enabled on the remote servers. This can be done a few different ways, but it is perhaps easiest to simply run [this script](https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1) on the destination servers. The script optionally takes a few switches, the effects of which are explained [here](http://docs.ansible.com/ansible/intro_windows.html#windows-system-prep).
+
+Another requirement is that PowerShell 3.0 or higher is being run on the remote servers. This shouldn't be an issue assuming the remote devices are running at least Windows Server 2008. However, should there be a need, there is another script that will upgrade PowerShell to 3.0. It can be found [here](https://github.com/ansible/ansible/blob/devel/examples/scripts/upgrade_to_ps3.ps1).
+
+Assuming the intent is for our web servers to sit on AWS instances, passing these scripts as part of a Cloud Formation template metadata might be an automated solution for running them on every machine.
+
 ## Repository Structure
 This repo is structured according to Ansible's suggested project file structure with a few differences here and there. Specific information about each file can be found at the top of each file as a comment.
 
