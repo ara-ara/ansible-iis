@@ -8,17 +8,18 @@
     include_management_tools: yes
     restart: yes
     
+# TOWER NOTE: chocolatey state only takes present or absent
 # Install chocolatey to get git
 - name: Install chocolatey
   win_chocolatey:
     name: chocolatey
-    state: latest
+    state: present
     
 # Install git for repo cloning later
 - name: Install git
   win_chocolatey:
     name: git
-    state: latest
+    state: present
     
 # Ensure git is in the system path
 #- name: Add git to the PATH
