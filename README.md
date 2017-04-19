@@ -14,7 +14,7 @@ Ansible templates are called playbooks. These define how we want our remote serv
 YAML is a relatively low learning curve, highly human readable data serialization language. It primarily uses indentation to denote the structure of a document, and uses a few reserved characters to further define syntax. More information about YAML can be found [here](http://www.yaml.org/spec/1.2/spec.html).
 
 **Example YAML document**
-```YAML
+```yaml
 ---
 receipt:     Oz-Ware Purchase Invoice
 date:        2012-08-06
@@ -59,6 +59,7 @@ This repo is structured according to Ansible's suggested project file structure 
   * roles contains named task lists to be executed
   * hosts contains a list of target nodes
   * main.yml is the start of our playbook
+
 ```
 group_vars/
 roles/
@@ -70,6 +71,7 @@ main.yml
   * iis - contains tasks for configuring IIS and necessary software
     + defaults folder within contains vars that are pulled in to the role automatically
   * sites - contains tasks for creating IIS sites
+
 ```
 iis/
 sites/
@@ -80,6 +82,7 @@ sites/
   * helpers contains a PowerShell script that handles a case Ansible currently does not support
   * site_definitions contain site specific information
   * tasks contains the logic for creating sites, app pools, bindings, and virtual directories
+
 ```
 defaults/
 helpers/
@@ -93,6 +96,7 @@ tasks/
   * create_site.yml handles creation of individual sites
   * create_virtual_dirs.yml handles creation of virtual directories within a website
   * main.yml is the main loop with calls the four tasks above to create a fully fledged IIS site
+
 ```
 create_apps.yml
 create_pools.yml
@@ -103,6 +107,7 @@ main.yml
 
 ### site_definitions
 This folders contains site specific folders. Within each site specific folder there is a file `site_vars.yml` which defines site specific information. Within the apps for for each site, each app is defined as a YAML file containing app specific information.
+
 ```
 site_definitions/site_name/
   apps/
