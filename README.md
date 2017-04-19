@@ -139,6 +139,6 @@ From a Unix host machine, assuming you are currently at the top level, simply ru
 
 **A Caveat**
 
-The Windows modules for Ansible or less supported than Unix modules since Ansible was developed for managing Unix based systems primarily. This means there are some workarounds that are required to get the necessary functionality out of this playbook.
+The Windows modules for Ansible are less supported than Unix modules since Ansible was developed for managing Unix based systems primarily. This means there are some workarounds that are required to get the necessary functionality out of this playbook.
 1. There is no native git module. Git commands must be run as part of the win_command module to get this functionality.
 2. The win_iis_webapplication module does not handle apps that are nested in virtual directories. To accommodate this, a helper script is copied to the remote server that converts existing directories into IIS web applications by using one of the Web Administration cmdlets provided by Microsoft. 
