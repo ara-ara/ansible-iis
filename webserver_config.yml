@@ -45,9 +45,9 @@ sites:
         pool_attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
       - pool_name: 'site1 (.Net 4.0 - 64bit)'
         pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
-    virtual_dirs:
-      - dir_name: dir1
-        dir_path: '{{ site_path }}\dir1'
+#    virtual_dirs:
+#      - dir_name: dir1
+#        dir_path: '{{ site_path }}\dir1'
 #    apps:
 #      - app_name: app1
 #        app_dest: '{{ site_path }}\{{ app_name }}'
