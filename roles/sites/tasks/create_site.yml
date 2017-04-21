@@ -5,6 +5,7 @@
   with_items: '{{ site.pools }}'
   loop_control:
     loop_var: pool
+  register: tmp
 
 - debug:
     msg: '{{ tmp }}'    
@@ -22,9 +23,9 @@
     physical_path: '{{ site.site_path }}'
     application_pool: '{{ site. }}'
     state: started
-    ip: '{{ ip_addr }}'
-    port: '{{ port_no }}'
-    hostname: '{{ host_name }}'
+    ip: '{{ site.ip_addr }}'
+    port: '{{ site.port_no }}'
+    hostname: '{{ site.host_name }}'
   register: website
 
 # # Add local web bindings for troubleshooting
