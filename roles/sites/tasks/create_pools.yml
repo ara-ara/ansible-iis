@@ -4,7 +4,7 @@
 - debug: 
     msg: '{{ pool }}'
 
-- name: Create app pool {{ pool.pool_name }}
+- name: Create app pool
     win_iis_webapppool:
       name: '{{ pool.pool_name }}'
       state: started
