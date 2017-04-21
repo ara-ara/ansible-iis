@@ -4,30 +4,30 @@
 #
 # sites:
 #   - site_name: site1
-#     site_path: '{{ root_path }}\{{ site_name }}'   # Leave this for each site
+#     site_path: '{{ root_path }}\site1'   # Leave this for each site
 #     ip_addr: 127.0.0.1
 #     port_no: 80
 #     host_name: site1.example.com
 #     pools:
-#       - pool_name: '{{ site_name }} some_identifier_if_desired'
+#       - pool_name: 'site1 some_identifier_if_desired'
 #         attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
-#       - pool_name: '{{ site_name }} some_identifier_if_desired'
+#       - pool_name: 'site1 some_identifier_if_desired'
 #         attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
 #     virtual_dirs:
 #       - dir_name: dir1
-#         dir_path: '{{ site_path }}\dir1'   # Path assuming site it root
+#         dir_path: '{{ root_path }}\site1\dir1'   # Path assuming site it root
 #       - dir_name: dir2
-#         dir_path: '{{ site_path }}\dir2'
+#         dir_path: '{{ root_path }}\site1\dir2'
 #     apps:
 #       - app_name: app1
-#         app_dest: '{{ site_path }}\{{ app_name }}'
-#         app_pool: '{{ pool_name }}'
+#         app_dest: 'app1'
+#         app_pool: 'a_pool_name_from_above'
 #         app_repo: url_to_repo
 #         app_branch: repo_branch
 #         top_level: true   # True if app is at top level
 #       - app_name: app2
-#         app_dest: '{{ site_path }}\dir1\{{ app_name }}'   # Nested directory
-#         app_pool: '{{ pool_name }}'
+#         app_dest: 'dir1\app2'   # Nested directory
+#         app_pool: 'a_pool_name_from_above'
 #         app_repo: url_to_repo
 #         app_branch: repo_branch
 #         top_level: false   # False since app is nested in virtual directory
@@ -48,18 +48,18 @@ sites:
     virtual_dirs:
       - dir_name: dir1
         dir_path: '{{ root_path }}\site1\dir1'
-#    apps:
-#      - app_name: app1
-#        app_dest: '{{ site_path }}\{{ app_name }}'
-#        app_pool: '{{ pool_name }}'
-#        app_repo: https://github.com/IBM/ibm.github.io.git
-#        app_branch: master
-#        top_level: true
-#      - app_name: app2
-#        app_dest: '{{ site_path }}\dir1\{{ app_name }}' 
-#        app_pool: '{{ pool_name }}'
-#        app_repo: https://github.com/twitter/twitter.github.com.git
-#        app_branch: master
-#        top_level: false
+    apps:
+      - app_name: app1
+        app_dest: app1
+        app_pool: 'site1 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/IBM/ibm.github.io.git
+        app_branch: master
+        top_level: true
+      - app_name: app2
+        app_dest: dir1\app2 
+        app_pool: 'site1 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/twitter/twitter.github.com.git
+        app_branch: master
+        top_level: false
 
 

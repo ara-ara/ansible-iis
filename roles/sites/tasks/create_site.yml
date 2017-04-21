@@ -39,9 +39,9 @@
   loop_control:
     loop_var: dir
 
-# ## Add all of the apps for the site
-# #- name: Create top level apps
-# #  include: create_apps.yml app_include={{ apps_path }}/{{ local_item }}
-# #  with_items: '{{ apps }}'
-# #  loop_control:
-# #    loop_var: local_item
+# Add all of the apps for the site
+- name: Create top level apps
+  include: create_apps.yml
+  with_items: '{{ site.apps }}'
+  loop_control:
+    loop_var: app
