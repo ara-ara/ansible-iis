@@ -31,7 +31,7 @@
 # Ansible seems to struggle with setting environment variables via modules
 # Hopefully a direct command will make the difference
 - name: Add git to the PATH
-  win_shell: 'setx /M path "%PATH%;C:\Program Files\Git\cmd"'
+  win_shell: "setx /M path \"%PATH%;C:\Program Files\Git\cmd\""
 
 # Get archiving tools to handle more archive types
 - name: Get PSCX msi
