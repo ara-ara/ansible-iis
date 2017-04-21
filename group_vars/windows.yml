@@ -1,6 +1,6 @@
 # Connection variables
 ansible_user: Administrator
-ansible_password: M@eNJ;4Zgs
+ansible_password: @udHSjnfu3!
 ansible_port: 5986
 ansible_connection: winrm
 ansible_winrm_server_cert_validation: ignore
