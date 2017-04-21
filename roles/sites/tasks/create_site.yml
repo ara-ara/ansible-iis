@@ -1,11 +1,8 @@
 ---
-# # Grab site specific vars
-# - name: Populate site local variables 
-  # include_vars: roles/sites/site_definitions/{{ site_name }}/site_vars.yml
-
-# # Create site specific app pools
-# - name: Create app pools
-  # include: create_pools.yml
+# Create site specific app pools
+- name: Create app pools
+  include: create_pools.yml
+  with_items: '{{ item.pools }}
 
 # Set up site directory
 - name: Create {{ site_name }} directory

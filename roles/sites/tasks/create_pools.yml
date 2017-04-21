@@ -2,29 +2,8 @@
 # TOWER NOTE: Seems as though managedPipelineMode is not recognized in this version of Tower.
 # IIS defaults to integrated though, so maybe this is not an issue?
 
-# Currently defining 4 app pools for each site to accommodate a variety of configurations.
-# Can add more or comment out unnecessary ones as we see fit
-- name: 32 bit .Net 2.0
-  win_iis_webapppool:
-    name: '{{ site_name }} (.NET 2.0 - 32bit)'
-    state: started
-    attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
-  register: pool_2_32
-- name: 32 bit .Net 4.0
-  win_iis_webapppool:
-    name: '{{ site_name }} (.NET 4.0 - 32bit)'
-    state: started
-    attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:True'
-  register: pool_4_32
-- name: 64 bit .Net 2.0
-  win_iis_webapppool:
-    name: '{{ site_name }} (.NET 2.0 - 64bit)'
-    state: started
-    attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:False'
-  register: pool_2_64
-- name: 64 bit .Net 4.0
-  win_iis_webapppool:
-    name: '{{ site_name }} (.NET 4.0 - 64bit)'
-    state: started
-    attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
-  register: pool_4_64
+- name: Create app pool {{ pool_name }}
+    win_iis_webapppool:
+      name: '{{ pool_name }}'
+      state: started
+      attributes: '{{ attributes }}'
