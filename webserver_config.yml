@@ -36,14 +36,14 @@
 
 sites:
   - site_name: site1
-    site_path: '{{ root_path }}\{{ site_name }}'
+    site_path: '{{ root_path }}\site1'
     ip_addr: 127.0.0.1
     port_no: 80
     host_name: site1.example.com
     pools:
-      - pool_name: '{{ site_name }} (.Net 2.0, 32bit)'
+      - pool_name: 'site1 (.Net 2.0, 32bit)'
         attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
-      - pool_name: '{{ site_name }} (.Net 4.0, 64bit)'
+      - pool_name: 'site1 (.Net 4.0, 64bit)'
         attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
 #    virtual_dirs:
 #      - dir_name: dir1
