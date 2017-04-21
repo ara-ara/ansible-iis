@@ -30,8 +30,8 @@
 #    state: present
 
 # Fix this before testing
-#- name: Add git to the system path
-#  win_command: setx path "%path%;C:\Program Files (x86)\Git\bin\"
+- name: Add git to the system path
+  win_command: 'setx path "%path%;C:\Program Files (x86)\Git\bin\"'
 
 # Get archiving tools to handle more archive types
 - name: Get PSCX msi
