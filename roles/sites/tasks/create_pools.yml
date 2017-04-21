@@ -2,7 +2,7 @@
 # TOWER NOTE: Seems as though managedPipelineMode is not recognized in this version of Tower.
 # IIS defaults to integrated though, so maybe this is not an issue?
 - debug: 
-    msg: '{{ pool.pool_name }}'
+    msg: '{{ pool.attributes }}'
 
 - name: Create app pool
     win_iis_webapppool:
