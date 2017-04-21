@@ -8,7 +8,8 @@
   register: tmp
 
 - debug:
-    msg: '{{ tmp }}'    
+    msg: tmp
+  with_items: tmp.results 
     
 # Set up site directory
 - name: Create {{ site.site_name }} directory
