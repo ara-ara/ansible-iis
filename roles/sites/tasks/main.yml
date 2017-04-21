@@ -12,6 +12,8 @@
 # Add sites to server
 - include: create_site.yml
   with_items: '{{ sites }}'
+  loop_control:
+    loop_var: site
 
 # Clean up the helper script
 - name: Remove helper script

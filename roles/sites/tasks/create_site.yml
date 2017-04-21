@@ -2,15 +2,15 @@
 # Create site specific app pools
 - name: Create app pools
   include: create_pools.yml
-  with_items: '{{ item.pools }}'
+  with_items: '{{ site.pools }}'
   loop_control:
     loop_var: pool
 
 # Set up site directory
-#- name: Create {{ site_name }} directory
-#  win_file:
-#    path: '{{ site_path }}'
-#    state: directory
+- name: Create {{ site_name }} directory
+  win_file:
+    path: '{{ site.site_path }}'
+    state: directory
 
 # # Add site to IIS
 # - name: Create {{ site_name }} in IIS
