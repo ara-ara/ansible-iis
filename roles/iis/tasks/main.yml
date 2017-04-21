@@ -16,15 +16,10 @@
     state: present
     
 # Install git for repo cloning later
-#- name: Install git
-#  win_chocolatey:
-#    name: git
-#    state: present
-#    force: true
-
-- name: install git
-  win_shell: choco install -dv -y git
-  
+- name: Install git
+  win_chocolatey:
+    name: git
+    state: present
 
 # TOWER NOTE: win_path not supported? it throws an error as a YAML error because the task isn't recognized
 # Ensure git is in the system path
@@ -32,6 +27,11 @@
 #  win_path:
 #    elements: '%SystemRoot%\Program Files\Git\bin'
 #    state: present
+
+# Ansible seems to struggle with setting environment variables via modules
+# Hopefully a direct command will make the difference
+- name: Add git to the PATH
+  win_shell: setx /M path "%path%;C:\Program Files\Git\cmd"
 
 # Get archiving tools to handle more archive types
 - name: Get PSCX msi
