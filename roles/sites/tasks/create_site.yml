@@ -1,7 +1,4 @@
 ---
-- debug: 
-    msg: '{{ item }}'
-
 # Create site specific app pools
 - name: Create app pools
   include: create_pools.yml
