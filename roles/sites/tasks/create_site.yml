@@ -5,6 +5,7 @@
   with_items: '{{ site.pools }}'
   loop_control:
     loop_var: pool
+  register: tmp
     
 - debug: var=tmp
     
