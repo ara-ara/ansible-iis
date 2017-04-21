@@ -27,7 +27,11 @@
 #  win_path:
 #    elements: '%SystemRoot%\Program Files\Git\bin'
 #    state: present
-    
+
+# Fix this before testing
+- name: Add git to the system path
+  win_command: setx /M 
+
 # Get archiving tools to handle more archive types
 - name: Get PSCX msi
   win_get_url:
