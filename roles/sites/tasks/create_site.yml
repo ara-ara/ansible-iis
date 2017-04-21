@@ -24,7 +24,7 @@
   register: website
 
 # Add local web bindings for troubleshooting
-- name: Create local web bindings for {{ site_name }}
+- name: Create local web bindings for {{ site.site_name }}
   win_iis_webbinding:
     name: '{{ site.site_name }}'
     host_header: localhost
@@ -32,13 +32,13 @@
     port: '{{ website.site.ID + 8080 }}'
     state: present
 
-# # Add virtual directories for the site
-# #- name: Create virtual directories
-# #  include: create_virtual_dirs.yml dir_name={{ local_item.name }} dir_path={{ local_item.path }}
-# #  with_items: '{{ virtual_dirs }}'
-# #  loop_control:
-# #    loop_var: local_item 
-# #
+# Add virtual directories for the site
+- name: Create virtual directories
+  include: create_virtual_dirs.yml
+  with_items: '{{ site.virtual_dirs }}'
+  loop_control:
+    loop_var: dir
+
 # ## Add all of the apps for the site
 # #- name: Create top level apps
 # #  include: create_apps.yml app_include={{ apps_path }}/{{ local_item }}
