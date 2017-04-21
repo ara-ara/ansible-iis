@@ -32,8 +32,8 @@
     port: '{{ website.site.ID + 8080 }}'
     state: present
 
-- debug:
-    msg: '{{ site }}'
+#- debug:
+#    msg: '{{ site }}'
     
 # Add virtual directories for the site
 #- name: Create virtual directories
