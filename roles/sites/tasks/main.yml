@@ -6,7 +6,11 @@
     dest: C:\convert_to_app.ps1 
 
 # Add sites to server
-- include: create_site.yml site_name={{ item }}
+#- include: create_site.yml site_name={{ item }}
+#  with_items: '{{ sites }}'
+  
+# Add sites to server
+- include: create_site.yml
   with_items: '{{ sites }}'
 
 # Clean up the helper script

@@ -40,26 +40,26 @@ sites:
     ip_addr: 127.0.0.1
     port_no: 80
     host_name: site1.example.com
-    pools:
-      - pool_name: '{{ site_name }} (.Net 2.0, 32bit)'
-        attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
-      - pool_name: '{{ site_name }} (.Net 4.0, 64bit)'
-        attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
-    virtual_dirs:
-      - dir_name: dir1
-        dir_path: '{{ site_path }}\dir1'
-    apps:
-      - app_name: app1
-        app_dest: '{{ site_path }}\{{ app_name }}'
-        app_pool: '{{ pool_name }}'
-        app_repo: https://github.com/IBM/ibm.github.io.git
-        app_branch: master
-        top_level: true
-      - app_name: app2
-        app_dest: '{{ site_path }}\dir1\{{ app_name }}' 
-        app_pool: '{{ pool_name }}'
-        app_repo: https://github.com/twitter/twitter.github.com.git
-        app_branch: master
-        top_level: false
+#    pools:
+#      - pool_name: '{{ site_name }} (.Net 2.0, 32bit)'
+#        attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
+#      - pool_name: '{{ site_name }} (.Net 4.0, 64bit)'
+#        attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
+#    virtual_dirs:
+#      - dir_name: dir1
+#        dir_path: '{{ site_path }}\dir1'
+#    apps:
+#      - app_name: app1
+#        app_dest: '{{ site_path }}\{{ app_name }}'
+#        app_pool: '{{ pool_name }}'
+#        app_repo: https://github.com/IBM/ibm.github.io.git
+#        app_branch: master
+#        top_level: true
+#      - app_name: app2
+#        app_dest: '{{ site_path }}\dir1\{{ app_name }}' 
+#        app_pool: '{{ pool_name }}'
+#        app_repo: https://github.com/twitter/twitter.github.com.git
+#        app_branch: master
+#        top_level: false
 
 
