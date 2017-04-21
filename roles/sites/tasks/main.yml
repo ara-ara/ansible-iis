@@ -9,9 +9,6 @@
 #- include: create_site.yml site_name={{ item }}
 #  with_items: '{{ sites }}'
 
-- debug:
-    msg: '{{ sites }}'  
-
 # Add sites to server
 - include: create_site.yml
   with_items: '{{ sites }}'
