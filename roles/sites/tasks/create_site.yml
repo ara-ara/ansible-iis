@@ -6,23 +6,26 @@
   loop_control:
     loop_var: pool
 
+- debug:
+    msg: '{{ tmp }}'    
+    
 # Set up site directory
-- name: Create {{ site_name }} directory
+- name: Create {{ site.site_name }} directory
   win_file:
     path: '{{ site.site_path }}'
     state: directory
 
-# # Add site to IIS
-# - name: Create {{ site_name }} in IIS
-  # win_iis_website:
-    # name: '{{ site_name }}'
-    # physical_path: '{{ site_path }}'
-    # application_pool: '{{ pool_4_64.info.name }}'
-    # state: started
-    # ip: '{{ ip_addr }}'
-    # port: '{{ port_no }}'
-    # hostname: '{{ host_name }}'
-  # register: website
+# Add site to IIS
+- name: Create {{ site.site_name }} in IIS
+  win_iis_website:
+    name: '{{ site.site_name }}'
+    physical_path: '{{ site.site_path }}'
+    application_pool: '{{ site. }}'
+    state: started
+    ip: '{{ ip_addr }}'
+    port: '{{ port_no }}'
+    hostname: '{{ host_name }}'
+  register: website
 
 # # Add local web bindings for troubleshooting
 # - name: Create local web bindings for {{ site_name }}

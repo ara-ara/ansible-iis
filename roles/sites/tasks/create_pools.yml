@@ -6,3 +6,4 @@
     name: '{{ pool.pool_name }}'
     state: started
     attributes: '{{ pool.pool_attributes }}'
+  register: tmp
