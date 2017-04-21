@@ -5,9 +5,6 @@
   with_items: '{{ site.pools }}'
   loop_control:
     loop_var: pool
-  register: tmp
-    
-- debug: var=tmp
     
 # Set up site directory
 - name: Create {{ site.site_name }} directory

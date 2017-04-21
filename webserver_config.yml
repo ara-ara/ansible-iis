@@ -41,9 +41,9 @@ sites:
     port_no: 80
     host_name: site1.example.com
     pools:
-      - pool_name: 'site1 (.Net 2.0, 32bit)'
+      - pool_name: 'site1 (.Net 2.0 - 32bit)'
         pool_attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
-      - pool_name: 'site1 (.Net 4.0, 64bit)'
+      - pool_name: 'site1 (.Net 4.0 - 64bit)'
         pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
 #    virtual_dirs:
 #      - dir_name: dir1
