@@ -32,12 +32,15 @@
     port: '{{ website.site.ID + 8080 }}'
     state: present
 
+- debug:
+    msg: '{{ site }}'
+    
 # Add virtual directories for the site
-- name: Create virtual directories
-  include: create_virtual_dirs.yml
-  with_items: '{{ site.virtual_dirs }}'
-  loop_control:
-    loop_var: dir
+#- name: Create virtual directories
+#  include: create_virtual_dirs.yml
+#  with_items: '{{ site.virtual_dirs }}'
+#  loop_control:
+#    loop_var: dir
 
 # ## Add all of the apps for the site
 # #- name: Create top level apps
