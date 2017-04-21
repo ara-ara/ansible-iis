@@ -17,21 +17,20 @@
   win_iis_website:
     name: '{{ site.site_name }}'
     physical_path: '{{ site.site_path }}'
-    application_pool: '{{ site. }}'
     state: started
     ip: '{{ site.ip_addr }}'
     port: '{{ site.port_no }}'
     hostname: '{{ site.host_name }}'
   register: website
 
-# # Add local web bindings for troubleshooting
-# - name: Create local web bindings for {{ site_name }}
-  # win_iis_webbinding:
-    # name: '{{ site_name }}'
-    # host_header: localhost
-    # ip: 127.0.0.1
-    # port: '{{ website.site.ID + 8080 }}'
-    # state: present
+# Add local web bindings for troubleshooting
+- name: Create local web bindings for {{ site_name }}
+  win_iis_webbinding:
+    name: '{{ site.site_name }}'
+    host_header: localhost
+    ip: 127.0.0.1
+    port: '{{ website.site.ID + 8080 }}'
+    state: present
 
 # # Add virtual directories for the site
 # #- name: Create virtual directories
