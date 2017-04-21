@@ -4,8 +4,8 @@
 - debug: 
     msg: '{{ pool.attributes }}'
 
-#- name: Create app pool
-#    win_iis_webapppool:
-#      name: '{{ pool.pool_name }}'
-#      state: started
-#     attributes: '{{ pool.pool_attributes }}'
+- name: Create app pool
+    win_iis_webapppool:
+      name: '{{ pool.pool_name }}'
+      state: started
+      attributes: "'{{ pool.pool_attributes }}'"
