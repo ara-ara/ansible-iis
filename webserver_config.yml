@@ -42,9 +42,9 @@ sites:
     host_name: site1.example.com
     pools:
       - pool_name: 'site1 (.Net 2.0, 32bit)'
-        attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
+        pool_attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
       - pool_name: 'site1 (.Net 4.0, 64bit)'
-        attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
+        pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
 #    virtual_dirs:
 #      - dir_name: dir1
 #        dir_path: '{{ site_path }}\dir1'
