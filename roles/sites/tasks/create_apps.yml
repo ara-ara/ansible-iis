@@ -45,4 +45,4 @@
 - name: Force checkout to ensure all local files match the remote repo
   win_command: git checkout -f HEAD
   args: 
-    chdir: '{{ app.app_dest }}'
+    chdir: '{{ site.site_path }}\{{ app.app_dest }}'
