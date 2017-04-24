@@ -37,6 +37,8 @@ As the intention is to make IIS web servers and sites a deployable service, all 
 
 To run the playbook, simply choose the [job template](https://tower.uis.kent.edu/#/templates/job_template/16) and pass in the desired parameters as extra variables. If we have acces to a Tower-cli we could also pass in a file as the extra parameters, but I've not seen a way to do that from the GUI interface yet.
 
+**NOTE:** The above assumes the system you're trying to connect to has already been prepared as described [here](http://docs.ansible.com/ansible/intro_windows.html#windows-system-prep). Feel free to test with a different inventory and set of machine credentials if you like. I can also provide the credentials for the machine I've been using if anyone wants to use it.
+
 ### Extra Vars
 Below is the template file along with an example two websites. This hopefully is fairly straightforward, but I can add more explanation to each part if necessary. 
 ```yaml
