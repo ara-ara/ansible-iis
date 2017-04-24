@@ -16,7 +16,7 @@
         src: roles/sites/helpers/add_to_path.ps1
         dest: C:\add_to_path.ps1
     - name: Add git to the path
-      win_shell: C:\add_to_path.ps1 C:\Program Files\Git\cmd
+      win_shell: C:\add_to_path.ps1 "C:\Program Files\Git\cmd"
     - name: Cleanup path helper script
       win_file:
         path: C:\add_to_path.ps1
