@@ -1,7 +1,11 @@
 - name: test win path
   hosts: all
   tasks:
-    - name: win_path module
-      win_path:
-        elements: '%SystemRoot%\Program Files\Git\cmd'
-        state: present
+    # - name: win_path module
+      # win_path:
+        # elements: '%SystemRoot%\Program Files\Git\cmd'
+        # state: present
+    - name: win_file
+      win_file:
+        path: C:\test_file.txt
+        state: touch
