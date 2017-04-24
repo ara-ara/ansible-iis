@@ -1,15 +1,12 @@
 **Please be sure to remove this README before merging with the master branch to keep from overwritting the project documentation.**
 
-## Branch Purpose
-Create a generic implementation of the dev branch.
-
 # Ansible IIS Sites for Tower
 Ansible Tower appears to have some differences from open source Ansible. Some modules may not be supported, or take different parameters. This branch should explore how to adapt the working solution in the master branch to accommodate the quirks of Tower.
 
 ## Changes for Tower
-1. win_path seems to not be supported
-2. win_chocolately accepts present or absent only
-3. win_iis_apppool does not seem to accept managedPipelineMode. Ignored for now as it defaults to Integrated by default
+1. win_path seems to not be supported ---> Temporary solution added until win_path support is added
+2. win_chocolately accepts present or absent only ---> Updated to reflect this
+3. win_iis_apppool does not seem to accept managedPipelineMode ---> Ignored for now as it defaults to Integrated by default
 
 ## TODO
 1. Continue optimizing for Tower
@@ -34,3 +31,102 @@ These are where we the command line argument essentially. Job templates require 
 
 ### Jobs
 This section provides runtime information from job templates that have been run. They provide detailed information about each task that runs as part of a playbook and can be reviewed to troubleshoot existing playbooks. 
+
+## How It Works
+As the intention is to make IIS web servers and sites a deployable service, all user dictated parameters have been parameterized. These are passed as extra variables, either directly or as a JSON/YAML file, at runtime. They dictate what actually gets built on the remote server. In this way all of the logic is obscured from users, making it hopefully easy to implement new sites. When this eventually gets paired with AWS deployments additional parameters will need to be passed to this template such as the IP to contact and machine credentials. These can be solved later though.
+
+To run the playbook, simply choose the [job template](https://tower.uis.kent.edu/#/templates/job_template/16) and pass in the desired parameters as extra variables. If we have acces to a Tower-cli we could also pass in a file as the extra parameters, but I've not seen a way to do that from the GUI interface yet.
+
+### Extra Vars
+Below is the template file along with an example two websites. This hopefully is fairly straightforward, but I can add more explanation to each part if necessary. 
+```
+# Define web server configuration here
+# This includes sites, their apps, pools, and virtual directories
+# Format is as follows...
+#
+# sites:
+#   - site_name: site1
+#     site_path: '{{ root_path }}\site1'   # Leave this for each site
+#     ip_addr: 127.0.0.1
+#     port_no: 80
+#     host_name: site1.example.com
+#     pools:
+#       - pool_name: 'site1 some_identifier_if_desired'
+#         attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
+#       - pool_name: 'site1 some_identifier_if_desired'
+#         attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
+#     virtual_dirs:
+#       - dir_name: dir1
+#         dir_path: '{{ root_path }}\site1\dir1'   # Path assuming site it root
+#       - dir_name: dir2
+#         dir_path: '{{ root_path }}\site1\dir2'
+#     apps:
+#       - app_name: app1
+#         app_dest: 'app1'
+#         app_pool: 'a_pool_name_from_above'
+#         app_repo: url_to_repo
+#         app_branch: repo_branch
+#         top_level: true   # True if app is at top level
+#       - app_name: app2
+#         app_dest: 'dir1\app2'   # Nested directory
+#         app_pool: 'a_pool_name_from_above'
+#         app_repo: url_to_repo
+#         app_branch: repo_branch
+#         top_level: false   # False since app is nested in virtual directory
+#
+# Add user configuration below following the above structure
+
+sites:
+  - site_name: site1
+    site_path: '{{ root_path }}\site1'
+    ip_addr: 127.0.0.1
+    port_no: 80
+    host_name: site1.example.com
+    pools:
+      - pool_name: 'site1 (.Net 2.0 - 32bit)'
+        pool_attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
+      - pool_name: 'site1 (.Net 4.0 - 64bit)'
+        pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
+    virtual_dirs:
+      - dir_name: dir1
+        dir_path: '{{ root_path }}\site1\dir1'
+    apps:
+      - app_name: app1
+        app_dest: app1
+        app_pool: 'site1 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/IBM/ibm.github.io.git
+        app_branch: master
+        top_level: true
+      - app_name: app2
+        app_dest: dir1\app2 
+        app_pool: 'site1 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/twitter/twitter.github.com.git
+        app_branch: master
+        top_level: false
+  - site_name: site2
+    site_path: '{{ root_path }}\site2'
+    ip_addr: 127.0.0.1
+    port_no: 80
+    host_name: site2.example.com
+    pools:
+      - pool_name: 'site2 (.Net 2.0 - 32bit)'
+        pool_attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
+      - pool_name: 'site2 (.Net 4.0 - 64bit)'
+        pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
+    virtual_dirs:
+      - dir_name: dir1
+        dir_path: '{{ root_path }}\site2\dir1'
+    apps:
+      - app_name: app1
+        app_dest: app1
+        app_pool: 'site2 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/IBM/ibm.github.io.git
+        app_branch: master
+        top_level: true
+      - app_name: app2
+        app_dest: dir1\app2 
+        app_pool: 'site2 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/twitter/twitter.github.com.git
+        app_branch: master
+        top_level: false
+```
