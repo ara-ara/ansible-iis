@@ -5,16 +5,15 @@ Param(
     [Parameter(Mandatory=$True,Position=1)]
         [string]$site_name,
     [Parameter(Mandatory=$True,Position=2)]
-        [string]$virtual_path,
+        [string]$physical_path,
     [Parameter(Mandatory=$True,Position=3)]
         [string]$app_pool
 )
 
 Import-Module WebAdministration
 
-$tmp = Get-WebApplication -Site $site_name -name $virtual_path
-$virtual_path = $virtual_path.Replace('/','\')
+$tmp = Get-WebApplication -Site $site_name -name $physical_path.Replace('\','/')
 
 if ($tmp -eq $null) { 
-    ConvertTo-WebApplication -PSPath IIS:\Sites\$site_name\$virtual_path -ApplicationPool $app_pool 
+    ConvertTo-WebApplication -PSPath IIS:\Sites\$site_name\$physical_path -ApplicationPool $app_pool 
 }
