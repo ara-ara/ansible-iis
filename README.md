@@ -39,7 +39,7 @@ To run the playbook, simply choose the [job template](https://tower.uis.kent.edu
 
 ### Extra Vars
 Below is the template file along with an example two websites. This hopefully is fairly straightforward, but I can add more explanation to each part if necessary. 
-```
+```yaml
 # Define web server configuration here
 # This includes sites, their apps, pools, and virtual directories
 # Format is as follows...
