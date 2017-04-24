@@ -5,7 +5,5 @@
       # win_path:
         # elements: '%SystemRoot%\Program Files\Git\cmd'
         # state: present
-    - name: win_file
-      win_file:
-        path: C:\test_file.txt
-        state: touch
+    - name: attempt to update path variable
+      win_command: 'C:\Program Files\Git\cmd\git.exe'
