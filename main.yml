@@ -2,5 +2,5 @@
 - name: Configure IIS web server
   hosts: all
   roles:
-#    - iis
+    - iis
     - sites
