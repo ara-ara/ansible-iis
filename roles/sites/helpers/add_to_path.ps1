@@ -5,16 +5,18 @@ Param(
         [string]$path_to_add
 )
 
-$res = cmd.exe /c echo %path% | find /C /I `"$path_to_add`"
+$current_path = [Environment]::GetEnvironmentVariable("PATH","Machine")
 
-if ($res -eq 0) {
+if (!($current_path.Contains($path_to_add))) {
     $current_path = [Environment]::GetEnvironmentVariable("PATH","Machine")
-   
+       
     if ($current_path[$current_path.Length - 1] -eq ";") {
-        [Environment]::SetEnvironmentVariable("PATH","$current_path$path_to_add", "Machine")
+        $new_path = $current_path + $path_to_add
+        [Environment]::SetEnvironmentVariable("PATH",$new_path, "Machine")
     }
 
     else {
-        [Environment]::SetEnvironmentVariable("PATH","$current_path;$path_to_add", "Machine")
+        $new_path = $current_path + ";" + $path_to_add
+        [Environment]::SetEnvironmentVariable("PATH",$new_path, "Machine")
     }
 }
