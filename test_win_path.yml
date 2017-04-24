@@ -11,13 +11,13 @@
         name: git
         state: present
       register: git_install
-    - debug:
-        msg: '{{ choco_install }}'
-    - debug:
-        msg: '{{ git_install }}'
-    # - name: Check if path already has contains git
-      # win_shell: 'echo %path% | find /C /I "C:\Program Files\Git\cmd"'
-      # register: result
-    # - name: Add git to path if needed
-      # win_shell: $current_path=[Environment]::GetEnvironmentVariable("PATH","Machine"); [Environment]::SetEnvironmentVariable("PATH","$current_path;C:\Program Files\Git\cmd","Machine")
-      # when: result == 0
+    - name: Copy path helper to server
+      win_copy:
+        src: roles/sites/helpers/add_to_path.ps1
+        dest: C:\add_to_path.ps1
+    - name: Add git to the path
+      win_shell: C:\add_to_path.ps1 'C:\Program Files\Git\cmd'
+    - name: Cleanup path helper script
+      win_file:
+        path: C:\add_to_path.ps1
+        state: absent
