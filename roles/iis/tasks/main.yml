@@ -24,17 +24,17 @@
 
 # User add_to_path helper script to ensure git is in the system path
 - name: Copy path helper script to server
-    win_copy:
-      src: roles/iis/helpers/add_to_path.ps1
-      dest: C:\add_to_path.ps1
-  - name: Add git to the path
-    win_shell: C:\add_to_path.ps1 "C:\Program Files\Git\cmd"
-  - name: Cleanup path helper script
-    win_file:
-      path: C:\add_to_path.ps1
-      state: absent
-  - name: Sanity check for git in path
-    win_command: git --version
+  win_copy:
+    src: roles/iis/helpers/add_to_path.ps1
+    dest: C:\add_to_path.ps1
+- name: Add git to the path
+  win_shell: C:\add_to_path.ps1 "C:\Program Files\Git\cmd"
+- name: Cleanup path helper script
+  win_file:
+    path: C:\add_to_path.ps1
+    state: absent
+- name: Sanity check for git in path
+  win_command: git --version
 
 # Get archiving tools to handle more archive types
 - name: Get PSCX msi
