@@ -12,7 +12,7 @@
     physical_path: '{{ site.site_path }}\{{ app.app_dest }}'
     site: '{{ site.site_name }}'
     state: present
-  when: top_level
+  when: app.top_level
 
 # Send shell script handler to convert the directory into a web application
 # if not a top level app. Workaround because the IIS Ansible modules do not currently
@@ -20,7 +20,7 @@
 # Assumes Web Administration modules are loaded for powershell
 - name: Convert directory into web application. Requires helper script
   win_shell: C:\convert_to_app.ps1 {{ site.site_name }} {{ app.app_dest }} "{{ app.app_pool }}"
-  when: not top_level 
+  when: not app.top_level 
 
 # Git init is safe to re-run
 # Note: chdir args exist only for this task. will return to default dir after execution is done.
