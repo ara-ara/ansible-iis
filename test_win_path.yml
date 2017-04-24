@@ -21,3 +21,5 @@
       win_file:
         path: C:\add_to_path.ps1
         state: absent
+    - name: Sanity check for git in path
+      win_command: git --version
