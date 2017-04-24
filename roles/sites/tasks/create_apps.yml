@@ -1,7 +1,7 @@
 # Set up the app directory
 - name: Create {{ app.app_name }} directory
   win_file:
-    path: '{{ app.app_dest }}'
+    path: '{{ site.site_path }}\{{ app.app_dest }}'
     state: directory
     
 # Add the app to IIS, assuming it's a top level app
