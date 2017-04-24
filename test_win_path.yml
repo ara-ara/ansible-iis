@@ -1,13 +1,23 @@
-- name: test win path
+- name: Chocolatey install and git with paths added
   hosts: all
   tasks:
-    # - name: win_path module
-      # win_path:
-        # elements: '%SystemRoot%\Program Files\Git\cmd'
-        # state: present
-    - name: Check if path already has contains git
-      win_shell: 'echo %path% | find /C /I "C:\Program Files\Git\cmd"'
-      register: result
-    - name: Add git to path if needed
-      win_shell: $current_path=[Environment]::GetEnvironmentVariable("PATH","Machine"); [Environment]::SetEnvironmentVariable("PATH","$current_path;C:\Program Files\Git\cmd","Machine")
-      when: result == 0
+    - name: Install chocolatey
+      win_chocolatey:
+        name: chocolatey
+        state: present
+      register: choco_install
+    - name: Install git
+      win_chocolatey:
+        name: git
+        state: present
+      register: git_install
+    - debug:
+        msg: '{{ choco_install }}'
+    - debug:
+        msg: '{{ git_install }}'
+    # - name: Check if path already has contains git
+      # win_shell: 'echo %path% | find /C /I "C:\Program Files\Git\cmd"'
+      # register: result
+    # - name: Add git to path if needed
+      # win_shell: $current_path=[Environment]::GetEnvironmentVariable("PATH","Machine"); [Environment]::SetEnvironmentVariable("PATH","$current_path;C:\Program Files\Git\cmd","Machine")
+      # when: result == 0
