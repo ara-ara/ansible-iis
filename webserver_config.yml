@@ -61,5 +61,30 @@ sites:
         app_repo: https://github.com/twitter/twitter.github.com.git
         app_branch: master
         top_level: false
-
+  - site_name: site2
+    site_path: '{{ root_path }}\site2'
+    ip_addr: 127.0.0.1
+    port_no: 80
+    host_name: site2.example.com
+    pools:
+      - pool_name: 'site2 (.Net 2.0 - 32bit)'
+        pool_attributes: 'managedRuntimeVersion:v2.0|enable32BitAppOnWin64:True'
+      - pool_name: 'site2 (.Net 4.0 - 64bit)'
+        pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin64:False'
+    virtual_dirs:
+      - dir_name: dir1
+        dir_path: '{{ root_path }}\site2\dir1'
+    apps:
+      - app_name: app1
+        app_dest: app1
+        app_pool: 'site2 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/IBM/ibm.github.io.git
+        app_branch: master
+        top_level: true
+      - app_name: app2
+        app_dest: dir1\app2 
+        app_pool: 'site2 (.Net 4.0 - 64bit)'
+        app_repo: https://github.com/twitter/twitter.github.com.git
+        app_branch: master
+        top_level: false
 
