@@ -44,6 +44,30 @@ Below is the template file along with an example two websites. This hopefully is
 ```yaml
 # Define web server configuration here
 # This includes sites, their apps, pools, and virtual directories
+#
+# sites 
+#   * Contains an array of sites, each site is denoted by a "-" nested under the sites object
+#   * Each site contains site information (name, path, host_name, etc.) as well as a list of virtual directories, app pools, and apps
+#   * The site_path should always be identified relative to the root path for the webserver. In other words, do not remove the {{ root_path }} part
+#   * Site names should be unique
+#
+# pools
+#   * Pools are needed to run the apps on a site. They define things like the .NET version and 32bit compatibility. 
+#   * Pool names should always follow the convention (site_name pool_name). This is to avoid conflicting pools if other websites are on the server
+#   * attributes are key/value pairs delimited by "|". This convention must be followed
+#  
+# virtual_dirs
+#   * These are your nested directories. For example, if you want a site at site1.example.com/dir1/app1, dir1 needs to be defined as a virtual directory. This is an IIS limitation and currently unavoidable.
+#   * Virtual directory names must be unique if they are at the same level relative to the root directory. 
+#   * Virtual directory paths should be relative to the root path. In other words they should {{ root_path }}\site_name\dir_name
+#   * If your virtual directory is nested deeper than one level (i.e. site1.example.com/dir1/dir2/app2), be sure to include the full path in the dir_path section
+#
+# apps
+#   * App names must be unique if they are at the same level relative to the root directory
+#   * App destinations are relative to their site. Thus, a top level app destination will just be its name. Any nested app must include the virtual directories it's under
+#   * Repository information should be straightforward, but provide the overall repo as well as the branch you wish to deploy
+#   * top_level should be true if the app is directly under the site (i.e. site1/app1). If the app is nested, then top_level should be false
+#
 # Format is as follows...
 #
 # sites:
@@ -75,6 +99,8 @@ Below is the template file along with an example two websites. This hopefully is
 #         app_repo: url_to_repo
 #         app_branch: repo_branch
 #         top_level: false   # False since app is nested in virtual directory
+#   - site_name: site2
+#     ... (the rest of the site information follows)
 #
 # Add user configuration below following the above structure
 
@@ -131,4 +157,6 @@ sites:
         app_repo: https://github.com/twitter/twitter.github.com.git
         app_branch: master
         top_level: false
+
+
 ```
