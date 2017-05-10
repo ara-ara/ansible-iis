@@ -5,8 +5,9 @@ The code within is divided into two section. First is a simple PHP based website
 
 ## How To Use
 Once the website is availble on a Unix box, users will be greeted with a form to create a new site. It will look as follows:
+<div style="text-align:center">
 ![website_initial](img/website_initial.png)
-
+</div>
 ## Limitations
 The Ansible code assumes a particular destination server currently. Thus, the hosts file and group_vars files must be altered to run this playbook on a different server.
 
