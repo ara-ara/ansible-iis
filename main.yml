@@ -1,6 +1,0 @@
-# Set up the webservers then create sites on them
-- name: Configure IIS web server
-  hosts: windows
-  roles:
-    - iis
-    - sites
