@@ -25,6 +25,13 @@ Once users have added the information they want for a website, clicking the add 
 
 Finally, once users have all of their website information filled out, click the submit button to confirm. This will generate the YAML file that will be used to configure your IIS webserver automatically. Currently this site does not serve the YAML file back to the client, but this could be easily added. Also not that the site currently does not refresh itself, so please ensure you refresh the page before attempting another query.
 
+
+Assuming you have access to the server the site is hosted on, travel to the website directory and examine the contents of the results folder to find the YAML file and Ansible output. 
+
+![results](img/results.png)
+
+![ansible_output](img/ansible_output.png)
+
 ## Limitations
 The Ansible code assumes a particular destination server currently. Thus, the hosts file and group_vars files must be altered to run this playbook on a different server.
 
