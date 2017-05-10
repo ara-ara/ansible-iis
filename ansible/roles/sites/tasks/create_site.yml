@@ -1,0 +1,47 @@
+---
+# Create site specific app pools
+- name: Create app pools
+  include: create_pools.yml
+  with_items: '{{ site.pools }}'
+  loop_control:
+    loop_var: pool
+    
+# Set up site directory
+- name: Create {{ site.site_name }} directory
+  win_file:
+    path: '{{ site.site_path }}'
+    state: directory
+
+# Add site to IIS
+- name: Create {{ site.site_name }} in IIS
+  win_iis_website:
+    name: '{{ site.site_name }}'
+    physical_path: '{{ site.site_path }}'
+    state: started
+    ip: '{{ site.ip_addr }}'
+    port: '{{ site.port_no }}'
+    hostname: '{{ site.host_name }}'
+  register: website
+
+# Add local web bindings for troubleshooting
+- name: Create local web bindings for {{ site.site_name }}
+  win_iis_webbinding:
+    name: '{{ site.site_name }}'
+    host_header: localhost
+    ip: 127.0.0.1
+    port: '{{ website.site.ID + 8080 }}'
+    state: present
+    
+# Add virtual directories for the site
+- name: Create virtual directories
+  include: create_virtual_dirs.yml
+  with_items: '{{ site.virtual_dirs }}'
+  loop_control:
+    loop_var: dir
+
+# Add all of the apps for the site
+- name: Create top level apps
+  include: create_apps.yml
+  with_items: '{{ site.apps }}'
+  loop_control:
+    loop_var: app

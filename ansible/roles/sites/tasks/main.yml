@@ -1,0 +1,30 @@
+---
+# Send helper script to server to help with app creation
+- name: Copy helper script to server
+  win_copy:
+    src: roles/sites/helpers/convert_to_app.ps1
+    dest: C:\convert_to_app.ps1 
+    
+# Send helper script to server to help with virtual directory creation
+- name: Copy virtual directory helper to server
+  win_copy:
+    src: roles/sites/helpers/convert_to_virtual_dir.ps1
+    dest: C:\convert_to_virtual_dir.ps1
+
+# Add sites to server
+- include: create_site.yml
+  with_items: '{{ sites }}'
+  loop_control:
+    loop_var: site
+
+# Clean up the helper script
+- name: Remove helper script
+  win_file:
+    path: C:\convert_to_app.ps1
+    state: absent
+    
+# Clean up the virtual directory helper script
+- name: Remove virtual directory helper script
+  win_file:
+    path: C:\convert_to_virtual_dir.ps1
+    state: absent

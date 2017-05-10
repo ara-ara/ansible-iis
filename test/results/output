@@ -1,0 +1,126 @@
+
+PLAY [Configure IIS web server] ************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.15.223.7]
+
+TASK [iis : Install IIS] *******************************************************
+ok: [52.15.223.7]
+
+TASK [iis : Install chocolatey] ************************************************
+changed: [52.15.223.7]
+
+TASK [iis : Install git] *******************************************************
+ok: [52.15.223.7]
+
+TASK [iis : Copy path helper script to server] *********************************
+changed: [52.15.223.7]
+
+TASK [iis : Add git to the path] ***********************************************
+changed: [52.15.223.7]
+
+TASK [iis : Cleanup path helper script] ****************************************
+changed: [52.15.223.7]
+
+TASK [iis : Sanity check for git in path] **************************************
+changed: [52.15.223.7]
+
+TASK [iis : Get PSCX msi] ******************************************************
+changed: [52.15.223.7]
+
+TASK [iis : Install PCSX] ******************************************************
+changed: [52.15.223.7]
+
+TASK [iis : Clean up PCSX msi] *************************************************
+changed: [52.15.223.7]
+
+TASK [sites : Copy helper script to server] ************************************
+changed: [52.15.223.7]
+
+TASK [sites : Copy virtual directory helper to server] *************************
+changed: [52.15.223.7]
+
+TASK [sites : include] *********************************************************
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_site.yml for 52.15.223.7
+
+TASK [sites : Create app pools] ************************************************
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_pools.yml for 52.15.223.7
+
+TASK [sites : Create app pool tmpsite] *****************************************
+changed: [52.15.223.7]
+
+TASK [sites : Create tmpsite directory] ****************************************
+changed: [52.15.223.7]
+
+TASK [sites : Create tmpsite in IIS] *******************************************
+changed: [52.15.223.7]
+
+TASK [sites : Create local web bindings for tmpsite] ***************************
+changed: [52.15.223.7]
+
+TASK [sites : Create virtual directories] **************************************
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_virtual_dirs.yml for 52.15.223.7
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_virtual_dirs.yml for 52.15.223.7
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_virtual_dirs.yml for 52.15.223.7
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_virtual_dirs.yml for 52.15.223.7
+
+TASK [sites : Create physical directory] ***************************************
+changed: [52.15.223.7]
+
+TASK [sites : Convert directory into virtual directory. Requires helper script] ***
+changed: [52.15.223.7]
+
+TASK [sites : Create physical directory] ***************************************
+changed: [52.15.223.7]
+
+TASK [sites : Convert directory into virtual directory. Requires helper script] ***
+changed: [52.15.223.7]
+
+TASK [sites : Create physical directory] ***************************************
+changed: [52.15.223.7]
+
+TASK [sites : Convert directory into virtual directory. Requires helper script] ***
+changed: [52.15.223.7]
+
+TASK [sites : Create physical directory] ***************************************
+changed: [52.15.223.7]
+
+TASK [sites : Convert directory into virtual directory. Requires helper script] ***
+changed: [52.15.223.7]
+
+TASK [sites : Create top level apps] *******************************************
+included: /var/www/html/Demo/Ansible-IIS-Sites/roles/sites/tasks/create_apps.yml for 52.15.223.7
+
+TASK [sites : Create app1 directory] *******************************************
+changed: [52.15.223.7]
+
+TASK [sites : Create IIS web app app1] *****************************************
+skipping: [52.15.223.7]
+
+TASK [sites : Convert directory into web application. Requires helper script] ***
+changed: [52.15.223.7]
+
+TASK [sites : Initialize the local app repo] ***********************************
+changed: [52.15.223.7]
+
+TASK [sites : Check to see if the remote repo is already tracked] **************
+ok: [52.15.223.7]
+
+TASK [sites : Checkout repo if not already tracked] ****************************
+changed: [52.15.223.7]
+
+TASK [sites : Pull to grab latest updates from the remote repo] ****************
+changed: [52.15.223.7]
+
+TASK [sites : Force checkout to ensure all local files match the remote repo] ***
+changed: [52.15.223.7]
+
+TASK [sites : Remove helper script] ********************************************
+changed: [52.15.223.7]
+
+TASK [sites : Remove virtual directory helper script] **************************
+changed: [52.15.223.7]
+
+PLAY RECAP *********************************************************************
+52.15.223.7                : ok=41   changed=30   unreachable=0    failed=0   
+

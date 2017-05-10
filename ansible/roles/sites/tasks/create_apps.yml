@@ -1,0 +1,48 @@
+# Set up the app directory
+- name: Create {{ app.app_name }} directory
+  win_file:
+    path: '{{ site.site_path }}\{{ app.app_dest }}'
+    state: directory
+    
+# Add the app to IIS, assuming it's a top level app
+- name: Create IIS web app {{ app.app_name }}
+  win_iis_webapplication:
+    name: '{{ app.app_name }}'
+    application_pool: '{{ app.app_pool }}'
+    physical_path: '{{ site.site_path }}\{{ app.app_dest }}'
+    site: '{{ site.site_name }}'
+    state: present
+  when: app.top_level
+
+# Send shell script handler to convert the directory into a web application
+# if not a top level app. Workaround because the IIS Ansible modules do not currently
+# handle the creation of application inside virtual directories
+# Assumes Web Administration modules are loaded for powershell
+- name: Convert directory into web application. Requires helper script
+  win_shell: C:\convert_to_app.ps1 {{ site.site_name }} {{ app.app_dest }} "{{ app.app_pool }}"
+  when: not app.top_level 
+
+# Git init is safe to re-run
+# Note: chdir args exist only for this task. will return to default dir after execution is done.
+# Copy remote repos to the app directories
+- name: Initialize the local app repo
+  win_command: git init
+  args:
+    chdir: '{{ site.site_path }}\{{ app.app_dest }}'
+- name: Check to see if the remote repo is already tracked
+  win_stat:
+    path: '{{ site.site_path }}\{{ app.app_dest }}\.git\config'
+  register: tmp
+- name: Checkout repo if not already tracked
+  win_command: git remote add -t {{ app.app_branch }} origin {{ app.app_repo }}
+  args:
+    chdir: '{{ site.site_path }}\{{ app.app_dest }}'
+  when: tmp.stat.checksum == git_checksum
+- name: Pull to grab latest updates from the remote repo
+  win_command: git pull
+  args:
+    chdir: '{{ site.site_path }}\{{ app.app_dest }}'
+- name: Force checkout to ensure all local files match the remote repo
+  win_command: git checkout -f HEAD
+  args: 
+    chdir: '{{ site.site_path }}\{{ app.app_dest }}'

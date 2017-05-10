@@ -1,0 +1,20 @@
+# Set up the physical directory
+- name: Create physical directory
+  win_file:
+    path: '{{ dir.dir_path }}'
+    state: directory
+
+    
+# Cannot pass path so virtual directories are not handled correctly
+# Add directory as a virtual path in IIS
+#- name: Create IIS virtual directory
+#  win_iis_virtualdirectory:
+#    name: '{{ dir.dir_name }}'
+#    site: '{{ site.site_name }}'
+#    physical_path: '{{ dir.dir_path }}'
+#    state: present
+
+- name: Convert directory into virtual directory. Requires helper script
+  win_shell: C:\convert_to_virtual_dir.ps1 {{ site.site_name }} {{ dir.dir_path }} {{ dir.dir_name }}
+
+

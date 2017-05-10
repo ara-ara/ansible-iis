@@ -1,0 +1,51 @@
+---
+# Install the main IIS sweet
+- name: Install IIS
+  win_feature:
+    name: "Web-Server"
+    state: present
+    include_sub_features: yes
+    include_management_tools: yes
+    restart: yes
+    
+# TOWER NOTE: chocolatey state only takes present or absent
+# Install chocolatey to get git
+- name: Install chocolatey
+  win_chocolatey:
+    name: chocolatey
+    state: present
+    force: true
+    
+# Install git for repo cloning later
+- name: Install git
+  win_chocolatey:
+    name: git
+    state: present
+
+# User add_to_path helper script to ensure git is in the system path
+- name: Copy path helper script to server
+  win_copy:
+    src: roles/iis/helpers/add_to_path.ps1
+    dest: C:\add_to_path.ps1
+- name: Add git to the path
+  win_shell: C:\add_to_path.ps1 "C:\Program Files\Git\cmd"
+- name: Cleanup path helper script
+  win_file:
+    path: C:\add_to_path.ps1
+    state: absent
+- name: Sanity check for git in path
+  win_command: git --version
+
+# Get archiving tools to handle more archive types
+- name: Get PSCX msi
+  win_get_url:
+    url: '{{ pcsx_url }}'
+    dest: '{{ pcsx_path }}'
+- name: Install PCSX
+  win_msi:
+    path: '{{ pcsx_path }}'
+    wait: True
+- name: Clean up PCSX msi
+  win_file:
+    path: '{{ pcsx_path }}'
+    state: absent

@@ -1,0 +1,25 @@
+sites:
+  - site_name: tmpsite
+    site_path: '{{ root_path }}\tmpsite'
+    ip_addr: 127.0.0.1
+    port_no: 80
+    host_name: tmpsite.com
+    pools:
+      - pool_name: 'tmpsite'
+        pool_attributes: 'managedRuntimeVersion:v4.0|enable32BitAppOnWin54:False'
+    virtual_dirs:
+      - dir_name: nested
+        dir_path: '{{ root_path }}\tmpsite\nested'
+      - dir_name: dirs
+        dir_path: '{{ root_path }}\tmpsite\nested\dirs'
+      - dir_name: are
+        dir_path: '{{ root_path }}\tmpsite\nested\dirs\are'
+      - dir_name: fun
+        dir_path: '{{ root_path }}\tmpsite\nested\dirs\are\fun'
+    apps:
+      - app_name: app1
+        app_dest: nested\dirs\are\fun\app1
+        app_repo: https://github.com/twitter/twitter.github.com.git
+        app_branch: master
+        app_pool: 'tmpsite'
+        top_level: false
