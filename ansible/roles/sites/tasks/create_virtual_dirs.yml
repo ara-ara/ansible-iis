@@ -3,6 +3,7 @@
   win_file:
     path: '{{ dir.dir_path }}'
     state: directory
+  when: dir.dir_path is defined
 
     
 # Cannot pass path so virtual directories are not handled correctly
@@ -16,5 +17,6 @@
 
 - name: Convert directory into virtual directory. Requires helper script
   win_shell: C:\convert_to_virtual_dir.ps1 {{ site.site_name }} {{ dir.dir_path }} {{ dir.dir_name }}
+  when: dir.dir_path is defined
 
 
